@@ -1,0 +1,141 @@
+<!DOCTYPE strict html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | RECLOSET</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="image.png" alt="RECLOSET" class="admin-logo">
+            </div>
+            
+            <div class="drop-control">
+                <h3>STATUS DEL DROP</h3>
+                <div class="status-indicator" id="statusIndicator">Cargando...</div>
+                <button id="toggleDropBtn" class="btn-toggle">
+                    <i class="fa-solid fa-power-off"></i> Cambiar Estado
+                </button>
+            </div>
+            
+            <nav class="admin-nav">
+                <button class="btn-add" id="openAddModalBtn">
+                    <i class="fa-solid fa-plus"></i> Nueva Prenda
+                </button>
+                
+                <a href="index.html" class="btn-view-store" target="_blank">
+                    <i class="fa-solid fa-eye"></i> Ver Tienda
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h2 class="serif-title">Inventario de Colección</h2>
+                <button id="refreshAdminBtn" class="btn-refresh"><i class="fa-solid fa-rotate-right"></i> Refrescar</button>
+            </header>
+            
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Foto</th>
+                            <th>Prenda</th>
+                            <th>Venta</th>
+                            <th>Precio</th>
+                            <th>Status</th>
+                            <th>Ganador</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <!-- JS inyecta datos -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Admin -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAdminModal">&times;</span>
+            <h2 id="adminModalTitle" class="serif-title">Prenda</h2>
+            
+            <form id="adminForm">
+                <input type="hidden" id="editRowIndex">
+                <input type="hidden" id="adminAction">
+                
+                <!-- NUEVO: Selector de Imagen de Galería -->
+                <div class="form-group file-upload-group">
+                    <label>Foto de la prenda</label>
+                    <div class="file-upload-wrapper">
+                        <!-- accept="image/*" abre la galería o cámara en el celular -->
+                        <input type="file" id="itemImagenFile" accept="image/*" class="file-input">
+                        <div class="file-upload-preview" id="imagePreview">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>Toca para elegir foto</span>
+                        </div>
+                    </div>
+                    <!-- Aquí guardaremos el Base64 de forma invisible -->
+                    <input type="hidden" id="itemImagenBase64" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select id="itemTipo" required>
+                            <option value="Subasta">Subasta</option>
+                            <option value="Venta Directa">Venta Directa</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select id="itemEstado" required>
+                            <option value="Disponible">Disponible</option>
+                            <option value="Vendido">Vendido</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre de la prenda</label>
+                    <input type="text" id="itemPrenda" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Talla</label>
+                        <input type="text" id="itemTalla" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <input type="text" id="itemMarca" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Precio MXN</label>
+                    <input type="number" id="itemPrecio" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Detalles</label>
+                    <textarea id="itemDetalles" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit" id="adminSubmitBtn">GUARDAR</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- El contenedor de notificaciones se genera por JS ahora -->
+
+    <script src="admin.js"></script>
+</body>
+</html>
